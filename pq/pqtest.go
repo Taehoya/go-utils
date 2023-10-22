@@ -7,10 +7,19 @@ import (
 	"os"
 )
 
+var (
+	dbUser   = "postgres"
+	dbPassWd = "postgres"
+	dbHost   = "localhost"
+	dbName   = "test"
+	dbPort   = "5432"
+)
+
+// TODO: need to change to use env value instead
 func InitTestDB() (*sql.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=disable",
-		os.Getenv("DB_TEST_HOST"), os.Getenv("DB_TEST_PORT"), os.Getenv("DB_TEST_USER"), os.Getenv("DB_TEST_PASSWORD"), os.Getenv("DB_TEST_NAME"))
+		dbHost, dbPort, dbUser, dbPassWd, dbName)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {

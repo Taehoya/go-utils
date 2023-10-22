@@ -10,16 +10,23 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
+var (
+	dbUser   = "root"
+	dbPassWd = "root"
+	dbAddr   = "localhost:3306"
+	dbName   = "test"
+)
+
+// TODO: need to change to use env value instead
 func InitTestDB() (*sql.DB, error) {
 	dbConfig := mysql.Config{
-		User:      os.Getenv("DB_TEST_USER"),
-		Passwd:    os.Getenv("DB_TEST_PASSWORD"),
+		User:      dbUser,
+		Passwd:    dbPassWd,
 		Net:       "tcp",
-		Addr:      os.Getenv("DB_TEST_ADDR"),
-		DBName:    os.Getenv("DB_TEST_NAME"),
+		Addr:      dbAddr,
+		DBName:    dbName,
 		ParseTime: true,
 	}
-
 	db, err := sql.Open("mysql", dbConfig.FormatDSN())
 	if err != nil {
 		return nil, fmt.Errorf("failed to open mysql")
