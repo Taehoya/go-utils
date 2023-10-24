@@ -11,12 +11,13 @@ import (
 
 func InitDB() (*sql.DB, error) {
 	dbConfig := mysql.Config{
-		User:      os.Getenv("DB_USER"),
-		Passwd:    os.Getenv("DB_PASSWORD"),
-		Net:       "tcp",
-		Addr:      os.Getenv("DB_ADDR"),
-		DBName:    os.Getenv("DB_NAME"),
-		ParseTime: true,
+		User:                 os.Getenv("DB_USER"),
+		Passwd:               os.Getenv("DB_PASSWORD"),
+		Net:                  "tcp",
+		Addr:                 os.Getenv("DB_ADDR"),
+		DBName:               os.Getenv("DB_NAME"),
+		ParseTime:            true,
+		AllowNativePasswords: true,
 	}
 
 	db, err := sql.Open("mysql", dbConfig.FormatDSN())
