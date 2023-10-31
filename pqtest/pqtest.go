@@ -1,10 +1,11 @@
-package pq
+package pqtest
 
 import (
 	"database/sql"
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 var (
@@ -40,8 +41,14 @@ func SetUp(db *sql.DB, fileName string) {
 		log.Fatalf("failed to read sql file")
 	}
 
-	_, err = db.Exec(string(file))
-	if err != nil {
-		log.Fatal("failed to exec sql file")
+	stmts := strings.Split(string(file), ";\n")
+	for _, stmt := range stmts {
+		if len(stmt) == 0 {
+			continue
+		}
+		_, err = db.Exec(string(file))
+		if err != nil {
+			log.Fatal("failed to exec sql file")
+		}
 	}
 }
