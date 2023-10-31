@@ -55,7 +55,7 @@ func SetUp(db *sql.DB, fileName string) {
 		if len(stmt) == 0 {
 			continue
 		}
-		_, err = db.Exec(string(file))
+		_, err = db.Exec(stmt)
 		if err != nil {
 			log.Fatal("failed to exec sql file")
 		}
